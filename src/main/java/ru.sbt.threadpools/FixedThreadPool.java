@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-public class FixedThreadPool {
+public class FixedThreadPool implements ThreadPool{
     private final Queue<Runnable> tasks = new ArrayDeque<>();
     private final int nThreads;
     private final List<Exception> logs = new ArrayList<>();
@@ -14,12 +14,14 @@ public class FixedThreadPool {
         this.nThreads = nThreads;
     }
 
+    @Override
     public void start(){
         for (int i = 0; i < nThreads; i++) {
              new CustomThread().start();
         }
     }
 
+    @Override
     public void execute(Runnable r){
         synchronized (tasks){
             tasks.add(r);
