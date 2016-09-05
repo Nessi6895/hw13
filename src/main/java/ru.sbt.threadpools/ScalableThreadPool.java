@@ -35,7 +35,7 @@ public class ScalableThreadPool implements ThreadPool {
             }
         }
 
-        if (!isThereFreeThreads && currentThreads){
+        if (!isThereFreeThreads && currentThreads.get() < maxThreads){
             new TemporaryThread().start();
             currentThreads.addAndGet(1);
         }
